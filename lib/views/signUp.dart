@@ -5,6 +5,8 @@ import 'package:my_flutter_chat_app/views/chatRoomScreen.dart';
 import 'package:my_flutter_chat_app/widgets/widget.dart';
 import 'package:my_flutter_chat_app/views/chatRoomScreen.dart';
 
+import 'package:my_flutter_chat_app/helper/helperFunctions.dart';
+
 class SignUp extends StatefulWidget {
   final Function toggle;
 
@@ -32,6 +34,11 @@ class _SignUpState extends State<SignUp> {
         "name": userNameTextEditingController.text,
         "email": emailTextEditingController.text
       };
+      HelperFunctions.saveUserUserEmailSharedReference(
+          emailTextEditingController.text);
+      HelperFunctions.saveUserUserNameSharedReference(
+          userNameTextEditingController.text);
+
       setState(() {
         isLoading = true;
       });
@@ -42,6 +49,7 @@ class _SignUpState extends State<SignUp> {
         print('${val.uid}');
 
         dataBaseMethods.uploadUserInformation(userInfoMap);
+        HelperFunctions.saveUserLoggedInSharedReference(true);
 
         Navigator.pushReplacement(
             context,
